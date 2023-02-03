@@ -1,13 +1,19 @@
-# Sample Hardhat Project
+#we need to compile, test, debug, and deploy our contracts.
+#First make sure you have node version 12 or above and npm installed. Then install Hardhat.
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+node --version
+npm --version
 
-Try running some of the following tasks:
+#If you don't have node you can find the installaiton guides for Windows, macOS, and Linux here:  https://nodejs.org/en/download/
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.js
-```
+
+mkdir sms-test
+cd sms-test
+npm init -y
+npm install dotenv
+npm install --save-dev hardhat
+
+npx hardhat
+
+#click yes to all
+
