@@ -1,0 +1,40 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "/Users/dimitris/Cadena_Tutorial/sms-test/contracts/smstest.sol": {
+      "lastModificationDate": 1673364521688,
+      "contentHash": "7360f35dee01ef82c09a2f487ca7ccd7",
+      "sourceName": "contracts/smstest.sol",
+      "solcConfig": {
+        "version": "0.8.17",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.17"
+      ],
+      "artifacts": [
+        "SMSOracle"
+      ]
+    }
+  }
+}
