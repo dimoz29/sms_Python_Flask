@@ -26,3 +26,8 @@ npx hardhat compile
 ```
 npx hardhat run scripts/deploy.js --network goerli
 ```
+you will end up with s/th like that
+```
+SMSOracleContract deployed to: 0x006202d2E96abeb270beAba53aBeE242f3353Af9
+SMSOracleContract owner address: 0xc3Be43715114CC06664e1f49E12C472C3BDb9cE8
+```
