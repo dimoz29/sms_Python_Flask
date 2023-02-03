@@ -14,7 +14,8 @@ npm init -y
 npm install dotenv
 npm install --save-dev hardhat
 ```
+```
 npx hardhat
-
+```
 #click yes to all
 
