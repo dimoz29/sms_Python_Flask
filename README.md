@@ -19,3 +19,10 @@ npx hardhat
 ```
 #click yes to all
 
+Set up POKT https://app.cadena.dev/ZHjzLozd3mCsAcgMfeHE/lesson/ethereum-101/lesson-eth-6/6
+```
+npx hardhat compile
+```
+```
+npx hardhat run scripts/deploy.js --network goerli
+```
