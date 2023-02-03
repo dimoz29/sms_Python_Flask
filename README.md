@@ -1,4 +1,5 @@
 #we need to compile, test, debug, and deploy our contracts.
+
 #First make sure you have node version 12 or above and npm installed. Then install Hardhat.
 
 node --version
