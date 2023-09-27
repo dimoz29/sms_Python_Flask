@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vonage SMS</title>
+</head>
+<body>
+    <h1>Vonage SMS Sender</h1>
+    <form method="POST">
+        <label for="recipient_number">Recipient Number:</label>
+        <input type="text" name="recipient_number" required><br><br>
+        
+        <label for="message_text">Message Text:</label>
+        <textarea name="message_text" rows="4" 
+required></textarea><br><br>
+
+        <input type="submit" value="Send Message">
+    </form>
+
+    {% if message_status %}
+    <p>{{ message_status }}</p>
+    {% endif %}
+</body>
+</html>
+
