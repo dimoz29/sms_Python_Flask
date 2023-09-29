@@ -1,34 +1,33 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, request, jsonify
 import vonage
+from web3 import Web3
 
 app = Flask(__name__)
 
-# Replace with your Vonage API key and secret
+# Initialize Vonage
 client = vonage.Client(key="b78ec810", secret="SkV66w8nnV1Wsi0v")
 sms = vonage.Sms(client)
 
-@app.route("/", methods=["GET", "POST"])
-def index():
-    if request.method == "POST":
-        recipient_number = request.form["recipient_number"]
-        message_text = request.form["message_text"]
+# Initialize Web3
+w3 = Web3(Web3.HTTPProvider('https://sepolia.infura.io/v3/a99fc8833eb8497e84637ab7db564a9c'))
 
-        responseData = sms.send_message(
-            {
-                "from": "Vonage APIs",
-                "to": recipient_number,
-                "text": message_text,
-            }
-        )
+@app.route('/send_sms', methods=['POST'])
+def send_sms():
+    data = request.json
+    recipient_number = data['recipient_number']
+    message_text = data['message_text']
 
-        if responseData["messages"][0]["status"] == "0":
-            message_status = "Message sent successfully."
-        else:
-            message_status = f"Message failed with error: {responseData['messages'][0]['error-text']}"
+    # Send SMS via Vonage
+    responseData = sms.send_message({
+        "from": "Vonage APIs",
+        "to": recipient_number,
+        "text": message_text
+    })
 
-        return render_template("index.html", message_status=message_status)
+    if responseData["messages"][0]["status"] == "0":
+        return jsonify({"status": "Message sent successfully"})
+    else:
+        return jsonify({"status": "Message failed"})
 
-    return render_template("index.html", message_status=None)
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(debug=True)
