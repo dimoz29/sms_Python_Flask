@@ -4,7 +4,35 @@
     <title>Vonage SMS</title>
 </head>
 
+
+
+<body>
+
+    <button onclick="connectWallet()">Connect MetaMask</button>
+    
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.3.0/dist/web3.min.js"></script>
+    <script>
+        let web3;
+        let accounts;
+
+        async function connectWallet() {
+            if (typeof window.ethereum !== 'undefined') {
+                web3 = new Web3(window.ethereum);
+                try {
+                    accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    console.log('Connected accounts:', accounts);
+                    // You can now interact with the connected account
+                } catch (error) {
+                    console.error('User denied account connection');
+                }
+            } else {
+                alert('MetaMask is not installed. Please consider installing it to interact with this website.');
+            }
+        }
+    </script>
+    
 <script>
+    
     // Check if MetaMask is installed
     if (window.ethereum === undefined) {
         alert("MetaMask is not installed. Please install it and try again.");
@@ -55,8 +83,7 @@
         });
     }
 </script>
-
-<body>
+    
     <form id="sms-form">
         <h1>Vonage SMS Sender</h1>
         <label for="recipient_number">Recipient Number:</label>
