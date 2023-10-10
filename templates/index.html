@@ -4,18 +4,64 @@
     <title>Vonage SMS</title>
 </head>
 <body>
+    <h1>Vonage SMS Sender with Ethereum</h1>
+    <form id="sms-form">
     <h1>Vonage SMS Sender</h1>
     <form method="POST">
         <label for="recipient_number">Recipient Number:</label>
+        <input type="text" id="recipient_number" required><br><br>
         <input type="text" name="recipient_number" required><br><br>
-        
+
         <label for="message_text">Message Text:</label>
+        <textarea id="message_text" rows="4" required></textarea><br><br>
         <textarea name="message_text" rows="4" 
 required></textarea><br><br>
 
         <input type="submit" value="Send Message">
     </form>
 
+    <script>
+        // Initialize web3
+        const web3 = new Web3(window.ethereum);
+
+        // Contract details
+        const CONTRACT_ABI = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"fee","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getUsers","outputs":[{"internalType":"address payable[]","name":"","type":"address[]"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address payable","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"recipient","outputs":[{"internalType":"address payable","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"sendPayment","outputs":[],"stateMutability":"payable","type":"function"}];
+        const CONTRACT_ADDRESS = '0xB5364e95BAC807F262744Dedd87BBF5b70504855';
+        const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+
+        // Form submission
+        document.getElementById('sms-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // User sign-in with MetaMask
+            const accounts = await window.ethereum.enable();
+            const userAddress = accounts[0];
+
+            // Trigger smart contract
+            contract.methods.sendPayment().send({from: userAddress})
+            .on('transactionHash', function(hash) {
+                console.log('Transaction sent:', hash);
+            })
+            .on('receipt', function(receipt) {
+                console.log('Transaction confirmed:', receipt);
+                sendSMS();
+            });
+        });
+
+        // Send SMS via Flask API
+        function sendSMS() {
+            fetch('/send_sms', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    recipient_number: document.getElementById('recipient_number').value,
+                    message_text: document.getElementById('message_text').value
+                })
+            });
+        }
+    </script>
     {% if message_status %}
     <p>{{ message_status }}</p>
     {% endif %}
