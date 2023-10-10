@@ -30,5 +30,12 @@ def index():
 
     return render_template("index.html", message_status=None)
 
+def account():
+    data = request.json
+    address = data.get('address')
+    # Process the address (e.g., store it, log it, etc.)
+    print(f'Connected MetaMask address: {address}')
+    return jsonify(success=True)
+
 if __name__ == "__main__":
     app.run(debug=True)
